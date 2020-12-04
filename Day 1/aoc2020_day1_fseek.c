@@ -8,11 +8,18 @@
 int main() {
 
 	FILE *pFile = fopen("input.txt", "r");
-
+	
+	fseek(pFile, 0, SEEK_END);
+	int tam = ftell(pFile);
+	rewind(pFile);
+	
 	char input[800];
 	int num[200];
 	
-	int i, j, k, exit = 0;
+	
+	//printf("tam = %d\n", tam);
+	
+	int i, j, k, exit= 0;
 	
 	while (fscanf(pFile, "%s", input) != EOF) { //Reading input.txt file
 	
@@ -22,9 +29,30 @@ int main() {
 		i++;
 		
 	}
-		
-	fclose(pFile);
 	
+	
+	/*
+	while (fgets(input, 200 + 1, pFile) != 0) { //Reading input.txt file
+	
+		printf("%s\n", input);
+		num[i] = atoi(input); //Char to int parse
+		i++;
+		
+	}
+	*/
+	
+	/*
+	char* dump = (char *)malloc(sizeof(char) * tam);
+	
+	while (fscanf(pFile, "%s", input) != EOF) {
+		printf("%s\n", input);
+		dump[i] = atoi(input); //Char to int parse
+		i++;
+	}
+	*/
+	
+	
+
 	for(i = 0; i < 199; i++) { //First star
 	
 		for(j = 1; j < 200; j++) {
@@ -34,11 +62,17 @@ int main() {
 				printf("\n%d * %d = ", num[i], num[j]);
 				printf("Star 1 flag: %d\n", num[i] * num[j]);
 				exit = 1;
-			}	
+			}
+			
 		}
-		if(exit) { break; }
-	} 
+		
+		if (exit) {
+		
+			break;
+		
+		}
 	
+	} 
 	
 	for(i = 0; i < 198; i++) { //Second star
 	
@@ -55,6 +89,8 @@ int main() {
 			}
 		}
 	}
-	return 0;
+
+	fclose(pFile);
+	
 }
 
